@@ -33,5 +33,7 @@ public class SubcategoriaControle {
 		return ResponseEntity.created(uri).body(modelMapper.map(criar, SubcategoriaDtO.class));
 		
 	}
+	
+	
 
 }

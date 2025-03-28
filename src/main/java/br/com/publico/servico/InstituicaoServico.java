@@ -6,12 +6,17 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
+import br.com.publico.dto.AtualizarInstDto;
+import br.com.publico.dto.BuscarInstituicaoDto;
 import br.com.publico.dto.InstituicaoDto;
 import br.com.publico.entidade.Instituicao;
 import br.com.publico.repositorio.InstituicaoRepositorio;
@@ -63,5 +68,24 @@ public class InstituicaoServico {
 		        
 		        return instituicaoRepositorio.save(instituicao);
 	}
+	
+	public Page<BuscarInstituicaoDto>listarInstituicoes(Pageable pageable){
+		return instituicaoRepositorio.findAll(pageable) 
+				.map(listar ->modelMapper.map(listar, BuscarInstituicaoDto.class));
+	}
 
+	public Instituicao buscarPorId(Long id) {
+		Optional<Instituicao>buscar = instituicaoRepositorio.findById(id);
+		return buscar.orElseThrow();
+	}
+	
+	public Instituicao atualizarInstituicao(AtualizarInstDto atualizarDto,Long id) {
+		atualizarDto.setId(id);
+		return instituicaoRepositorio.save(modelMapper.map(atualizarDto, Instituicao.class));
+	}
+	
+	public void excluirInstituicao(Long id) {
+		buscarPorId(id);
+		instituicaoRepositorio.deleteById(id);
+	}
 }
