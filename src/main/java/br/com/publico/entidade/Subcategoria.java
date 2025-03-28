@@ -2,6 +2,8 @@ package br.com.publico.entidade;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Subcategoria {
 	@ManyToOne
 	@JoinColumn(name  = "categoria_id")
 	private Categoria categoria;
+	@JsonIgnore
 	@OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
 	private List<Instituicao>instituicoes;
 } 

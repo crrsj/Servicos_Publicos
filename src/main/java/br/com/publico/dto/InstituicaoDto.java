@@ -1,13 +1,13 @@
-package br.com.publico.entidade;
+package br.com.publico.dto;
 
-import jakarta.persistence.MappedSuperclass;
+import br.com.publico.entidade.Subcategoria;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@MappedSuperclass
 @Data
 @NoArgsConstructor
-public abstract class ClasseBase {
+public class InstituicaoDto {
+	
 	private String nome;	
 	private String telefone;
 	private String cep;
@@ -17,5 +17,5 @@ public abstract class ClasseBase {
 	private String bairro;
 	private String localidade;
 	private String estado;
-	private String regiao;
+	private Subcategoria subcategoria;
 }
