@@ -41,7 +41,7 @@ public class CategoriaControle {
 	
 	@GetMapping
 	public ResponseEntity<List<BuscarCategoriasDto>>listarCategorias(@RequestParam(defaultValue = "0")int pagina,
-			                                                          @RequestParam(defaultValue = "10")int tamanho){
+			                                                         @RequestParam(defaultValue = "10")int tamanho){
     var paginacao = PageRequest.of(pagina, tamanho);
     List<BuscarCategoriasDto>listar = categoriaServico.listarCategorias(paginacao).getContent();
     return ResponseEntity.ok(listar);

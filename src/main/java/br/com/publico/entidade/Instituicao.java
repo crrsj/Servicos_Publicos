@@ -1,7 +1,5 @@
 package br.com.publico.entidade;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +25,7 @@ public class Instituicao{
 	private String nome;	
 	private String telefone;
 	private String cep;
-	private String logradouro;
-	private String complemento;
+	private String logradouro;	
 	private String numero;
 	private String bairro;
 	private String localidade;

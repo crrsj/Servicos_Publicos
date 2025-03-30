@@ -12,8 +12,7 @@ public class BuscarInstituicaoDto {
 	private String nome;	
 	private String telefone;
 	private String cep;
-	private String logradouro;
-	private String complemento;
+	private String logradouro;	
 	private String numero;
 	private String bairro;
 	private String localidade;

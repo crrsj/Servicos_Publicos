@@ -34,9 +34,7 @@ public class InstituicaoServico {
 	private final Gson gson;
 	
 	public Instituicao criarInstituicao(InstituicaoDto instituicaoDto,Long subcategoriaId) throws IOException, InterruptedException {
-	
-	        
-	        
+	        	        
 		        String url = "https://viacep.com.br/ws/" + instituicaoDto.getCep() + "/json/";
 		        HttpRequest request = HttpRequest.newBuilder()
 		                .uri(URI.create(url))
@@ -50,24 +48,22 @@ public class InstituicaoServico {
 		            throw new RuntimeException("Erro na requisição: Código " + response.statusCode());
 		        }
 
-		        // Converte a resposta JSON para um objeto SubcategoriaDtO (ou criar uma classe específica para o CEP)
+		        
 		        var cadastroCep = gson.fromJson(response.body(), InstituicaoDto.class);
 		    	  var subcategoria = subcategoriaRepositorio.findById(subcategoriaId).orElseThrow();
 		        var instituicao = modelMapper.map(instituicaoDto, Instituicao.class);
 	            instituicao.setSubcategoria(subcategoria);     
-
-		        // Atualiza os dados do cadastro
+		      
 		        instituicao.setLogradouro(cadastroCep.getLogradouro());
 		        instituicao.setBairro(cadastroCep.getBairro());
 		        instituicao.setLocalidade(cadastroCep.getLocalidade());
 		        instituicao.setEstado(cadastroCep.getEstado());
-		        instituicao.setCep(cadastroCep.getCep());
-		     
+		        instituicao.setCep(cadastroCep.getCep());	     
 		       //  Salva no banco de dados
-		        
-		        
+		        		        
 		        return instituicaoRepositorio.save(instituicao);
 	}
+	
 	
 	public Page<BuscarInstituicaoDto>listarInstituicoes(Pageable pageable){
 		return instituicaoRepositorio.findAll(pageable) 
