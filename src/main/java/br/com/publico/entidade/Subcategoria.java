@@ -26,11 +26,8 @@ public class Subcategoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
 	private String nome;
-	@ManyToOne
-	@JoinColumn(name  = "secretaria_id")
-	private Secretaria secretaria;
-	@ManyToOne
-	@JoinColumn(name  = "categoria_id")
+	@ManyToOne	
+	@JoinColumn(name = "categor_id")
 	private Categoria categoria;
 	@JsonIgnore
 	@OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)

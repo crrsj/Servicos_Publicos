@@ -22,7 +22,7 @@ import br.com.publico.dto.BuscarInstituicaoDto;
 import br.com.publico.dto.InstituicaoDto;
 import br.com.publico.servico.InstituicaoServico;
 import lombok.RequiredArgsConstructor;
-
+ 
 @RestController
 @RequestMapping("/instituicao")
 @RequiredArgsConstructor

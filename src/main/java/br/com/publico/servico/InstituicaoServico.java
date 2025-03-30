@@ -32,7 +32,7 @@ public class InstituicaoServico {
 	private final InstituicaoRepositorio instituicaoRepositorio;
 	private final HttpClient client;
 	private final Gson gson;
-	
+
 	public Instituicao criarInstituicao(InstituicaoDto instituicaoDto,Long subcategoriaId) throws IOException, InterruptedException {
 	        	        
 		        String url = "https://viacep.com.br/ws/" + instituicaoDto.getCep() + "/json/";

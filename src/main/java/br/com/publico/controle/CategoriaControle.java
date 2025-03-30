@@ -22,6 +22,8 @@ import br.com.publico.dto.CategoriasDto;
 import br.com.publico.servico.CategoriaServico;
 import lombok.RequiredArgsConstructor;
 
+
+
 @RestController
 @RequestMapping("/categoria")
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class CategoriaControle {
 	
 	private final ModelMapper modelMapper;
 	private final CategoriaServico categoriaServico;
+	
 	
 	@PostMapping
 	public ResponseEntity<CategoriasDto>criarCategoria(@RequestBody CategoriasDto categoriasDto){

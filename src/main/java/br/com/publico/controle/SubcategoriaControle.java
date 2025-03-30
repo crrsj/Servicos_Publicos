@@ -1,11 +1,11 @@
 package br.com.publico.controle;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/subcategoria")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class SubcategoriaControle {
 	
 	private final ModelMapper modelMapper;
@@ -32,7 +33,7 @@ public class SubcategoriaControle {
 	
 	@PostMapping("/{categoriaId}")
 	public ResponseEntity<SubcategoriaDtO>criarSubCategoria(@RequestBody SubcategoriaDtO subcategoriaDtO,
-			                                                @PathVariable Long categoriaId) throws IOException, InterruptedException{
+			                                                @PathVariable Long categoriaId){
 		var criar = subcategoriaServico.criarSubcategoria(subcategoriaDtO,categoriaId);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				  .path("/{id}").buildAndExpand(criar.getId()).toUri();

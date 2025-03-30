@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.com.publico.entidade.Categoria;
 import br.com.publico.entidade.Instituicao;
-import br.com.publico.entidade.Secretaria;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BuscarSubCategoriaDto {
 	private Long id;
-	private String nome;	
-	private Secretaria secretaria;	
+	private String nome;
 	private Categoria categoria;	
 	private List<Instituicao>instituicoes;
 
