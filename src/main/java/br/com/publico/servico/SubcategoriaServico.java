@@ -52,4 +52,11 @@ public class SubcategoriaServico {
 		buscarPorId(id);
 		subcategoriaRepositorio.deleteById(id);
 	}
+	
+	public Subcategoria buscarSubCategoria(String nomeSubcategoria) {
+		Optional<Subcategoria>buscar = subcategoriaRepositorio
+				.findBySubCategoria(nomeSubcategoria.trim().toUpperCase());
+		return buscar.orElseThrow();
+		
+	}
 }

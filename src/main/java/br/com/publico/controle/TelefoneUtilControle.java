@@ -20,6 +20,10 @@ import br.com.publico.dto.AtualizarTelefoneDto;
 import br.com.publico.dto.BuscarTelefoneUtil;
 import br.com.publico.dto.TelefoneUtilDto;
 import br.com.publico.servico.TelUtilServico;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 
@@ -33,6 +37,10 @@ public class TelefoneUtilControle {
 	
 	
 	@PostMapping
+	@Operation(summary = "Endpoint responsável por cadastrar telefones.") 
+    @ApiResponse(responseCode = "201",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<TelefoneUtilDto>criaraTelefone(@RequestBody TelefoneUtilDto telUtilDto){
 		var criar = telUtilServico.criarTelefone(telUtilDto);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -43,6 +51,10 @@ public class TelefoneUtilControle {
 	
 	
 	@GetMapping
+	@Operation(summary = "Endpoint responsável por buscar todos os telefones(contém paginação).") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<List<BuscarTelefoneUtil>>listarTelefones(@RequestParam(defaultValue = "0")int pagina,
 			                                                       @RequestParam(defaultValue = "10")int tamanho){
 	var	paginacao = PageRequest.of(pagina, tamanho);
@@ -53,6 +65,10 @@ public class TelefoneUtilControle {
 	
 	
 	@GetMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por buscar telefone pelo ID.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<BuscarTelefoneUtil>buscarPorId(@PathVariable Long id){
 		var buscar = telUtilServico.buscarPorId(id);
 		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarTelefoneUtil.class));
@@ -60,13 +76,32 @@ public class TelefoneUtilControle {
 	
 	
 	@PutMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por atualizar telefone pelo ID.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<TelefoneUtilDto>atualizarTelefones(@RequestBody AtualizarTelefoneDto dto,@PathVariable Long id) {
 		var atualizar = telUtilServico.atualizarTelefone(dto, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar,TelefoneUtilDto.class ));
 	}
 	
 	
+	@GetMapping("/buscarNome")
+	@Operation(summary = "Endpoint responsável por buscar telefone pelo nome da entidade.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
+	public ResponseEntity<BuscarTelefoneUtil>buscarPorNome(@RequestParam("nome")String nome){
+		var buscar = telUtilServico.buscarPorNome(nome);
+		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarTelefoneUtil.class));
+	}
+	
+	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por deletar telefones.") 
+    @ApiResponse(responseCode = "204",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<Void>excluirTelefones(@PathVariable Long id){
 		telUtilServico.excluirTelefone(id);
 		return ResponseEntity.noContent().build();

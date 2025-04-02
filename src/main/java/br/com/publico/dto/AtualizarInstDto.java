@@ -11,6 +11,7 @@ public class AtualizarInstDto {
 	private Long id;
 	private String nome;	
 	private String telefone;
+	private String email;
 	private String cep;
 	private String logradouro;	
 	private String numero;

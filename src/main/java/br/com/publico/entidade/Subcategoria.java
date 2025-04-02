@@ -1,5 +1,7 @@
 package br.com.publico.entidade;
 
+
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +27,7 @@ public class Subcategoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
-	private String nome;
+	private String nomeSubcategoria;
 	@ManyToOne	
 	@JoinColumn(name = "categor_id")
 	private Categoria categoria;

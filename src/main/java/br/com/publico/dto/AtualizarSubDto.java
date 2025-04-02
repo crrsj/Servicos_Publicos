@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AtualizarSubDto {
 	private Long id;
-	private String nome;	
+	private String nomeSubcategoria;	
 	private Categoria categoria;	
 	private List<Instituicao>instituicoes;
 }

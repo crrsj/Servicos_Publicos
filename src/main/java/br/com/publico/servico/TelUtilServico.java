@@ -42,6 +42,12 @@ public class TelUtilServico {
 		
 	}
 	
+	
+	public TelefoneUtil buscarPorNome(String nome) {
+		Optional<TelefoneUtil> buscar = telRepositorio.findByNome(nome.trim().toUpperCase());
+		return buscar.orElseThrow();
+	}
+	
 	public void excluirTelefone(Long id) {
 		buscarPorId(id);
 		telRepositorio.deleteById(id);

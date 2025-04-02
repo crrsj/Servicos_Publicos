@@ -49,5 +49,10 @@ public class CategoriaServico {
 		buscarPorId(id);
 	    categoriaRepositorio.deleteById(id);
 	}
+	
+	public Categoria buscarCategorias(String categoria) {
+		Optional<Categoria>buscar = categoriaRepositorio.findByNome(categoria);
+		return buscar.orElseThrow();
+	}
 
 }

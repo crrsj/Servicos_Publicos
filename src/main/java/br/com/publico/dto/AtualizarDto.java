@@ -1,5 +1,8 @@
 package br.com.publico.dto;
 
+import java.util.List;
+
+import br.com.publico.entidade.Subcategoria;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class AtualizarDto {
 
 	private Long id;
-	private String nome;	
+	private String nome;
+	private List<Subcategoria> subcategoria;	
 
 }

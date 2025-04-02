@@ -19,6 +19,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.publico.dto.BuscarSubCategoriaDto;
 import br.com.publico.dto.SubcategoriaDtO;
 import br.com.publico.servico.SubcategoriaServico;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,6 +36,10 @@ public class SubcategoriaControle {
 	
 	
 	@PostMapping("/{categoriaId}")
+	@Operation(summary = "Endpoint responsável por cadastrar Subcategorias passando o ID da categoria como parâmetro.") 
+    @ApiResponse(responseCode = "201",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<SubcategoriaDtO>criarSubCategoria(@RequestBody SubcategoriaDtO subcategoriaDtO,
 			                                                @PathVariable Long categoriaId){
 		var criar = subcategoriaServico.criarSubcategoria(subcategoriaDtO,categoriaId);
@@ -43,6 +51,10 @@ public class SubcategoriaControle {
 	
 	
 	@GetMapping
+	@Operation(summary = "Endpoint responsável por buscar todas as subcategorias(contém paginação).") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<List<BuscarSubCategoriaDto>>listarSubcategorias(@RequestParam(defaultValue = "0")int pagina,
 			                                                        @RequestParam(defaultValue = "10")int tamanho){
 		var paginacao   = PageRequest.of(pagina, tamanho);
@@ -52,6 +64,10 @@ public class SubcategoriaControle {
 	
 	
 	@GetMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por buscar subcategorias pelo ID.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<BuscarSubCategoriaDto>buscarPorId(@PathVariable Long id){
 		var buscar = subcategoriaServico.buscarPorId(id);
 		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarSubCategoriaDto.class));
@@ -59,8 +75,22 @@ public class SubcategoriaControle {
 	
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por deletar subcategorias pelo ID.") 
+    @ApiResponse(responseCode = "204",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<Void>excluirSubcategoria(@PathVariable Long id){
 		subcategoriaServico.excluirSubcategoria(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/buscarSubcategoria")
+	@Operation(summary = "Endpoint responsável por buscar subcategorias pelo nome.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
+	public ResponseEntity<BuscarSubCategoriaDto>buscarNome(@RequestParam("nomeSubcategoria")String nomeSubcategoria){
+		var buscar = subcategoriaServico.buscarSubCategoria(nomeSubcategoria);
+		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarSubCategoriaDto.class));
 	}
 }

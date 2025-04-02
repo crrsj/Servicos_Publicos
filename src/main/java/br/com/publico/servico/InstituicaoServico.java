@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -45,12 +46,12 @@ public class InstituicaoServico {
 		        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
 
 		        if (response.statusCode() != 200) {
-		            throw new RuntimeException("Erro na requisição: Código " + response.statusCode());
+		            throw new IllegalArgumentException("Erro na requisição: Código " + response.statusCode());
 		        }
 
 		        
 		        var cadastroCep = gson.fromJson(response.body(), InstituicaoDto.class);
-		    	  var subcategoria = subcategoriaRepositorio.findById(subcategoriaId).orElseThrow();
+		    	var subcategoria = subcategoriaRepositorio.findById(subcategoriaId).orElseThrow();
 		        var instituicao = modelMapper.map(instituicaoDto, Instituicao.class);
 	            instituicao.setSubcategoria(subcategoria);     
 		      
@@ -59,7 +60,7 @@ public class InstituicaoServico {
 		        instituicao.setLocalidade(cadastroCep.getLocalidade());
 		        instituicao.setEstado(cadastroCep.getEstado());
 		        instituicao.setCep(cadastroCep.getCep());	     
-		       //  Salva no banco de dados
+		     
 		        		        
 		        return instituicaoRepositorio.save(instituicao);
 	}
@@ -79,6 +80,15 @@ public class InstituicaoServico {
 		atualizarDto.setId(id);
 		return instituicaoRepositorio.save(modelMapper.map(atualizarDto, Instituicao.class));
 	}
+	
+	
+	  public List<Instituicao> buscarPorBairro(String bairro){ 
+		  	       
+	        return instituicaoRepositorio.findByBairro(bairro.trim().toUpperCase());
+	        		
+	           
+	    }
+			
 	
 	public void excluirInstituicao(Long id) {
 		buscarPorId(id);

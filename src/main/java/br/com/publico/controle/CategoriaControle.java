@@ -20,6 +20,10 @@ import br.com.publico.dto.AtualizarDto;
 import br.com.publico.dto.BuscarCategoriasDto;
 import br.com.publico.dto.CategoriasDto;
 import br.com.publico.servico.CategoriaServico;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 
@@ -34,6 +38,10 @@ public class CategoriaControle {
 	
 	
 	@PostMapping
+	@Operation(summary = "Endpoint responsável por cadastrar categorias.") 
+    @ApiResponse(responseCode = "201",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
 	public ResponseEntity<CategoriasDto>criarCategoria(@RequestBody CategoriasDto categoriasDto){
 		var criar = categoriaServico.criarCategoria(categoriasDto);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -43,6 +51,10 @@ public class CategoriaControle {
 	
 	
 	@GetMapping
+	@Operation(summary = "Endpoint responsável pela busca de todas as categorias(contém paginação).") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })           
 	public ResponseEntity<List<BuscarCategoriasDto>>listarCategorias(@RequestParam(defaultValue = "0")int pagina,
 			                                                         @RequestParam(defaultValue = "10")int tamanho){
     var paginacao = PageRequest.of(pagina, tamanho);
@@ -51,6 +63,10 @@ public class CategoriaControle {
 	}
 	
 	@GetMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por buscar categoria pelo ID.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })           
 	public ResponseEntity<BuscarCategoriasDto>buscarPorId(@PathVariable Long id){
 		var buscar = categoriaServico.buscarPorId(id);
 		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarCategoriasDto.class));
@@ -58,15 +74,33 @@ public class CategoriaControle {
 	}
 	
 	@PutMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por atualizar categoria pelo ID.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })           
 	public ResponseEntity<AtualizarDto>atualizarCategorias(@RequestBody AtualizarDto atualizarDto,@PathVariable Long id){
 		var atualizar = categoriaServico.atualizarcategoria(atualizarDto, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar, AtualizarDto.class));
 	}
 	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Endpoint responsável por deletar categoria pelo ID.") 
+    @ApiResponse(responseCode = "204",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })           
 	public ResponseEntity<Void>excluirCategoria(@PathVariable Long id){
 		categoriaServico.excluirCategoria(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/buscaCategoria")
+	@Operation(summary = "Endpoint responsável por buscar categoria pelo nome.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })           
+	public ResponseEntity<BuscarCategoriasDto>buscarCategorias(@RequestParam("nome")String nomeCategoria){
+		var buscar = categoriaServico.buscarCategorias(nomeCategoria);
+		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarCategoriasDto.class));
 	}
 	
 }
