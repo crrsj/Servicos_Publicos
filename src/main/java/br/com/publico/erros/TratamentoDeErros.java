@@ -27,6 +27,7 @@ public class TratamentoDeErros {
 		
 	}
 	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?>validarCampos(MethodArgumentNotValidException ex){
 		var validar = ex.getFieldErrors();
 		return ResponseEntity.badRequest().body(validar.stream().map(ValidandoCampos::new).toList());

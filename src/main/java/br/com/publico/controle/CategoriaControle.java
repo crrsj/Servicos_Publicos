@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -42,7 +43,7 @@ public class CategoriaControle {
     @ApiResponse(responseCode = "201",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<CategoriasDto>criarCategoria(@RequestBody CategoriasDto categoriasDto){
+	public ResponseEntity<CategoriasDto>criarCategoria(@RequestBody @Valid CategoriasDto categoriasDto){
 		var criar = categoriaServico.criarCategoria(categoriasDto);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				  .path("/{id}").buildAndExpand(criar.getId()).toUri();
@@ -78,7 +79,7 @@ public class CategoriaControle {
     @ApiResponse(responseCode = "200",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })           
-	public ResponseEntity<AtualizarDto>atualizarCategorias(@RequestBody AtualizarDto atualizarDto,@PathVariable Long id){
+	public ResponseEntity<AtualizarDto>atualizarCategorias(@RequestBody @Valid AtualizarDto atualizarDto,@PathVariable Long id){
 		var atualizar = categoriaServico.atualizarcategoria(atualizarDto, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar, AtualizarDto.class));
 	}

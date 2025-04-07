@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -41,7 +42,7 @@ public class TelefoneUtilControle {
     @ApiResponse(responseCode = "201",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<TelefoneUtilDto>criaraTelefone(@RequestBody TelefoneUtilDto telUtilDto){
+	public ResponseEntity<TelefoneUtilDto>criaraTelefone(@RequestBody @Valid TelefoneUtilDto telUtilDto){
 		var criar = telUtilServico.criarTelefone(telUtilDto);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(criar.getId()).toUri();
@@ -80,7 +81,7 @@ public class TelefoneUtilControle {
     @ApiResponse(responseCode = "200",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<TelefoneUtilDto>atualizarTelefones(@RequestBody AtualizarTelefoneDto dto,@PathVariable Long id) {
+	public ResponseEntity<TelefoneUtilDto>atualizarTelefones(@RequestBody @Valid AtualizarTelefoneDto dto,@PathVariable Long id) {
 		var atualizar = telUtilServico.atualizarTelefone(dto, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar,TelefoneUtilDto.class ));
 	}

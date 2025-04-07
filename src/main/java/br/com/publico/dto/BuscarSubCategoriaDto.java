@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BuscarSubCategoriaDto {
 	private Long id;
-	private String nomeSubcaategoria;
+	private String nomeSubcategoria;
 	private Categoria categoria;	
 	private List<Instituicao>instituicoes;
 

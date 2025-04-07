@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
  
 @RestController
@@ -40,7 +41,7 @@ public class InstituicaoControle {
     @ApiResponse(responseCode = "201",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<InstituicaoDto>criarInstituicao(@RequestBody InstituicaoDto instituicaoDto,
+	public ResponseEntity<InstituicaoDto>criarInstituicao(@RequestBody @Valid InstituicaoDto instituicaoDto,
 			                                               @PathVariable Long subcategoriaId) throws IOException, InterruptedException{
 		var criar = instituicaoServico.criarInstituicao(instituicaoDto, subcategoriaId);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -76,7 +77,7 @@ public class InstituicaoControle {
     @ApiResponse(responseCode = "200",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<AtualizarInstDto>atualizarInstituicoes(@RequestBody AtualizarInstDto atualizarDto,
+	public ResponseEntity<AtualizarInstDto>atualizarInstituicoes(@RequestBody @Valid AtualizarInstDto atualizarDto,
 			                                                      @PathVariable Long id){
 		var atualizar = instituicaoServico.atualizarInstituicao(atualizarDto, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar, AtualizarInstDto.class));
