@@ -29,7 +29,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/subcategoria")
+@RequestMapping("api/subcategorias")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class SubcategoriaControle {
@@ -107,5 +107,15 @@ public class SubcategoriaControle {
 			                                                  @PathVariable Long id){
 		var atualizar  = subcategoriaServico.atualizarSubcategoria(DTO, id);
 		return ResponseEntity.ok().body(modelMapper.map(atualizar, AtualizarSubDto.class));
+	}
+	
+	@GetMapping("/buscarSub")
+	@Operation(summary = "Endpoint responsável por buscar subcategoria pelo nome.") 
+    @ApiResponse(responseCode = "200",description = " sucesso",content = {
+   	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
+    })   
+	public ResponseEntity<BuscarSubCategoriaDto>buscarNomeSubcategoria(@RequestParam(name = "nomeSubcategoria")String nomeSubcategoria){
+		var buscar = subcategoriaServico.buscarPorNomeSubcategoria(nomeSubcategoria);
+		return ResponseEntity.ok().body(modelMapper.map(buscar, BuscarSubCategoriaDto.class));
 	}
 }

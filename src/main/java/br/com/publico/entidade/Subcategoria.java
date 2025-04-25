@@ -32,6 +32,6 @@ public class Subcategoria {
 	@JoinColumn(name = "categor_id")
 	private Categoria categoria;
 	@JsonIgnore
-	@OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "subcategoria",cascade = CascadeType.ALL)
 	private List<Instituicao>instituicoes;
 } 

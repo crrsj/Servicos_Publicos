@@ -6,6 +6,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,19 +30,20 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
  
 @RestController
-@RequestMapping("/instituicao")
+@RequestMapping("api/instituicoes")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class InstituicaoControle {
 	
 	private final ModelMapper modelMapper;
 	private final InstituicaoServico instituicaoServico;
 	
-	@PostMapping("{subcategoriaId}")
+	@PostMapping("/{subcategoriaId}")
 	@Operation(summary = "Endpoint responsável por cadastrar instuições,passando o ID da subcategoria como parâmetro.") 
     @ApiResponse(responseCode = "201",description = " sucesso",content = {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
-	public ResponseEntity<InstituicaoDto>criarInstituicao(@RequestBody @Valid InstituicaoDto instituicaoDto,
+	public ResponseEntity<InstituicaoDto>criarInstituicao(@RequestBody @Valid  InstituicaoDto instituicaoDto,
 			                                               @PathVariable Long subcategoriaId) throws IOException, InterruptedException{
 		var criar = instituicaoServico.criarInstituicao(instituicaoDto, subcategoriaId);
 		var uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -56,7 +58,7 @@ public class InstituicaoControle {
    	@Content(mediaType = "application.json",schema = @Schema(implementation = ResponseEntity.class))
     })   
 	public ResponseEntity<List<BuscarInstituicaoDto>>listarInstituicoes(@RequestParam(defaultValue = "0")int pagina,
-			                                                            @RequestParam(defaultValue = "10")int tamanho){
+			                                                            @RequestParam(defaultValue = "50")int tamanho){
 		var paginacao = PageRequest.of(pagina, tamanho);
 	    List<BuscarInstituicaoDto>listar = instituicaoServico.listarInstituicoes(paginacao).getContent();
 	    return ResponseEntity.ok(listar);

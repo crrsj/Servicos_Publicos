@@ -1,5 +1,6 @@
 package br.com.publico.servico;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -58,5 +59,10 @@ public class SubcategoriaServico {
 				.findBySubCategoria(nomeSubcategoria.trim().toUpperCase());
 		return buscar.orElseThrow();
 		
+	}
+	
+	public Subcategoria buscarPorNomeSubcategoria(String nomeSubcategoria){
+		Optional<Subcategoria> buscar = subcategoriaRepositorio.findBySubCategoria(nomeSubcategoria);
+		return buscar.orElseThrow();
 	}
 }
