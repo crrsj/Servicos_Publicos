@@ -1,11 +1,54 @@
-Olá pessoal, desenvolvi uma API que chamo de serviços públicos,
-a idéia é cadastrar entidades públicas como delegacias,
-hospitais, escolas, telefones úteis, etc. O objetivo é 
-ajudar ao usuário para que ele possa encontrar informações
-como endereços, telefones, etc.,da entidade que ele deseja
-de serviços públicos essenciais da minha cidade em um único 
-lugar,estou utilizando da api viacep para cadastrar endereços 
-mais precisos no sistema, utilizando java,spring, postgres.
+# 📞 Serviços Públicos de Sergipe
+
+![Bandeira de Sergipe](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Bandeira_de_Sergipe.svg/1200px-Bandeira_de_Sergipe.svg.png)
+
+> Sistema de consulta e exibição de instituições públicas, suas categorias e contatos úteis no estado de Sergipe, com foco especial em Aracaju.
+
+---
+
+## 📌 Visão Geral
+
+Este projeto tem como objetivo **facilitar o acesso da população a informações organizadas** sobre **instituições públicas**, suas **categorias, subcategorias** e **telefones úteis**, 
+etc.
+---
+
+## 🖼️ Tecnologias Utilizadas
+- 🐘 **Java com Spring Boot** (Backend da API)  
+- 
+- 🗃️ **PostgreSQL / H2 Database**  
+
+---
+
+## 🧩 Funcionalidades
+
+✅ Exibição de **categorias** de serviços públicos  
+✅ Exibição de **subcategorias** associadas  
+✅ Consulta de **instituições públicas** por categoria e subcategoria  
+✅ Listagem de **telefones úteis** de serviços essenciais  
+✅ Interface com **design responsivo** e estilização moderna  
+✅ Integração com **API REST** no backend Java Spring Boot  
+
+---
+
+## 🖼️ Interface do Usuário
+
+A página exibe, de forma separada e organizada:
+
+- 🗂️ **Categorias**  
+- 📂 **Subcategorias**  
+- 🏢 **Instituições**  
+- ☎️ **Telefones Úteis**
+
+---
+
+## 👤 Autor
+
+**Carlos Roberto Ribeiro Santos Junior**  
+💼 Desenvolvedor Backend Java & Spring  
+📍 Aracaju - SE
+
+---
+
 ![sp01](https://github.com/user-attachments/assets/3251660f-1154-4364-930c-fd6154179705)
 ![sp2](https://github.com/user-attachments/assets/d74da48c-6c02-46d0-8985-2b6a424ecd61)
 ![sp3](https://github.com/user-attachments/assets/a347be2b-d432-4edd-8e9a-d3c6d2b3c795)
